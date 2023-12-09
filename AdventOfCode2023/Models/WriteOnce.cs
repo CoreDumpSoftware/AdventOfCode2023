@@ -1,4 +1,4 @@
-﻿using AdventOfCode2023.Utilties;
+﻿using AdventOfCode2023.Exceptions;
 
 namespace AdventOfCode2023.Models;
 

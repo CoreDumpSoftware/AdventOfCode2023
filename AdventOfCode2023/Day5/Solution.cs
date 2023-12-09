@@ -90,7 +90,7 @@ public class Solution : SolutionBase
 
         var dict = new ConcurrentDictionary<long, byte>();
 
-        Parallel.ForEach(seeds, new ParallelOptions { MaxDegreeOfParallelism = 16 }, (Range seedRange) =>
+        Parallel.ForEach(seeds, new ParallelOptions { MaxDegreeOfParallelism = 16 }, (Range<long> seedRange) =>
         {
             long localLowest = long.MaxValue;
             long lastKnownGlobalLowest = long.MaxValue;
@@ -125,7 +125,7 @@ public class Solution : SolutionBase
         return lowestLocation;
     }
 
-    private IEnumerable<Range> ParsePartTwoSeeds(string line)
+    private IEnumerable<Range<long>> ParsePartTwoSeeds(string line)
     {
         long start = -1;
         long length = -1;
@@ -138,7 +138,7 @@ public class Solution : SolutionBase
             {
                 length = value;
 
-                yield return new Range(start, length);
+                yield return new Range<long>(start, length);
 
                 start = -1;
                 length = -1;

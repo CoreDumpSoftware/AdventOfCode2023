@@ -5,8 +5,8 @@ namespace AdventOfCode2023.Day5;
 
 public class MapRow
 {
-    public Range Source { get; init; }
-    public Range Destination { get; init; }
+    public Range<long> Source { get; init; }
+    public Range<long> Destination { get; init; }
     public long Delta { get; init; }
     public long RangeLength { get; init; }
 

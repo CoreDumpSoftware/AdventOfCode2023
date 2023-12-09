@@ -1,10 +1,14 @@
 ﻿namespace AdventOfCode2023.Models;
 
-public class Range(long start, long length)
+public class Range<T>(T start, T end)
+    where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 {
-    public long Start { get; init; } = start;
-    public long End { get; init; } = start + length;
-    public long Length { get; init; } = length;
+    public T Start { get; set; } = start;
+    public T End { get; set; } = end;
+    public long Length { get; set; }
 
-    public bool Contains(long value) => Start <= value && End > value;
+    public bool Contains(T value) => Start.CompareTo(value) >= 0 && End.CompareTo(value) == -1;
+
+    public override string ToString() =>
+        $"({start} >= n < {end})";
 }

@@ -150,7 +150,7 @@ public class Solution : SolutionBase
             .ToList();
 
         var gearPairs = new List<SchematicValue>();
-        var sum = 0;
+        long sum = 0;
 
         foreach (var value in asteriskValues)
         {
