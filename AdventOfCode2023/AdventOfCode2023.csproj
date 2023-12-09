@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Day1\1_1.txt" />
+    <None Remove="Day2\2_1.txt" />
+    <None Remove="Day3\3_1.txt" />
+    <None Remove="Day3\3_1_sample.txt" />
+    <None Remove="Day4\4_1.txt" />
+    <None Remove="Day4\4_1_sample.txt" />
+    <None Remove="Day5\5_1.txt" />
+    <None Remove="Day5\5_1_sample.txt" />
+    <None Remove="Day6\6_1.txt" />
+    <None Remove="Day6\6_1_sample.txt" />
+    <None Remove="Day7\7_1.txt" />
+    <None Remove="Day7\7_1_sample.txt" />
+    <None Remove="Day7\7_1_sample2.txt" />
+    <None Remove="Day8\PrimesUnder1000.txt" />
+    <None Remove="Day9\9_1.txt" />
+    <None Remove="Day9\9_1_sample.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Day7\7_1_sample2.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Day1\1_1.txt" />
+    <EmbeddedResource Include="Day2\2_1.txt" />
+    <EmbeddedResource Include="Day3\3_1.txt" />
+    <EmbeddedResource Include="Day3\3_1_sample.txt" />
+    <EmbeddedResource Include="Day4\4_1.txt" />
+    <EmbeddedResource Include="Day4\4_1_sample.txt" />
+    <EmbeddedResource Include="Day5\5_1.txt" />
+    <EmbeddedResource Include="Day5\5_1_sample.txt" />
+    <EmbeddedResource Include="Day6\6_1.txt" />
+    <EmbeddedResource Include="Day6\6_1_sample.txt" />
+    <EmbeddedResource Include="Day7\7_1.txt" />
+    <EmbeddedResource Include="Day7\7_1_sample.txt" />
+    <EmbeddedResource Include="Day8\8_1.txt" />
+    <EmbeddedResource Include="Day8\8_1_sample.txt" />
+    <EmbeddedResource Include="Day8\PrimesUnder1000.txt" />
+    <EmbeddedResource Include="Day9\9_1_sample.txt" />
+    <EmbeddedResource Include="Day9\9_1.txt" />
+  </ItemGroup>
+
+</Project>
