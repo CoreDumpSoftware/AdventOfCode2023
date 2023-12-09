@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023.Day5;
+﻿namespace AdventOfCode2023.Models;
 
 public class Range(long start, long length)
 {

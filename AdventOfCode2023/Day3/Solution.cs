@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using AdventOfCode2023.Extensions;
-using AdventOfCode2023.Utilities;
+using AdventOfCode2023.Models;
 
 namespace AdventOfCode2023.Day3;
 
@@ -74,7 +74,7 @@ public class Solution : SolutionBase
             {
                 var value = int.Parse(match.Value);
                 var adjacentPositions = GetAdjectPositions(new(match.Index, yIndex), match.Length, dimensions);
-                ValuePosition symbol = null;
+                ValuePosition<char> symbol = null!;
 
                 foreach (var position in adjacentPositions)
                 {
@@ -89,7 +89,7 @@ public class Solution : SolutionBase
                 schematicValues.Add(new SchematicValue
                 {
                     Value = value,
-                    ValuePositions = Enumerable.Range(0, match.Length).Select(i => new ValuePosition(matrix[yIndex][match.Index + i], match.Index + i, yIndex)).ToList(),
+                    ValuePositions = Enumerable.Range(0, match.Length).Select(i => new ValuePosition<char>(matrix[yIndex][match.Index + i], match.Index + i, yIndex)).ToList(),
                     Symbol = symbol
                 });
             }
@@ -122,7 +122,7 @@ public class Solution : SolutionBase
             {
                 var value = int.Parse(match.Value);
                 var adjacentPositions = GetAdjectPositions(new(match.Index, yIndex), match.Length, dimensions);
-                ValuePosition symbol = null;
+                ValuePosition<char> symbol = null!;
 
                 foreach (var position in adjacentPositions)
                 {
@@ -137,7 +137,7 @@ public class Solution : SolutionBase
                 schematicValues.Add(new SchematicValue
                 {
                     Value = value,
-                    ValuePositions = Enumerable.Range(0, match.Length).Select(i => new ValuePosition(matrix[yIndex][match.Index + i], match.Index + i, yIndex)).ToList(),
+                    ValuePositions = Enumerable.Range(0, match.Length).Select(i => new ValuePosition<char>(matrix[yIndex][match.Index + i], match.Index + i, yIndex)).ToList(),
                     Symbol = symbol
                 });
             }

@@ -1,6 +1,5 @@
 ﻿namespace AdventOfCode2023.Day7;
 
-[Disable] // Long running solution
 public class Solution : SolutionBase
 {
     protected override string PartOneInputFile { get; init; } = "7_1.txt";

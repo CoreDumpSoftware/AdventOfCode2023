@@ -7,47 +7,57 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var overallElapsed = new Stopwatch();
-        overallElapsed.Start();
+        if (args.Any())
+        {
+            RunAll();
+        }
+        else
+        {
+            var overallElapsed = new Stopwatch();
+            overallElapsed.Start();
 
-        var solution = new Day9.Solution();
+            var solution = new Day9.Solution();
 
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-        var answer = solution.PartOne();
-        stopwatch.Stop();
+            var answer = solution.PartOne();
+            stopwatch.Stop();
 
-        Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
+            Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
 
-        stopwatch.Start();
+            stopwatch.Start();
 
-        answer = solution.PartTwo();
-        stopwatch.Stop();
+            answer = solution.PartTwo();
+            stopwatch.Stop();
 
-        Console.WriteLine($"\tPart 2 Solution: {answer} \t\t {stopwatch.Elapsed}");
+            Console.WriteLine($"\tPart 2 Solution: {answer} \t\t {stopwatch.Elapsed}");
 
-        //foreach (var type in GetEnumerableOfType<SolutionBase<long>>())
-        //{
-        //    Console.WriteLine(type.GetType().FullName);
-        //    var stopwatch = new Stopwatch();
-        //    stopwatch.Start();
+            overallElapsed.Stop();
+            Console.WriteLine($"Finished running after {overallElapsed.Elapsed}");
+        }
+    }
 
-        //    var answer = type.PartOne();
-        //    Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
-        //    stopwatch.Stop();
+    public static void RunAll()
+    {
+        foreach (var type in GetEnumerableOfType<SolutionBase>())
+        {
+            Console.WriteLine(type.GetType().FullName);
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-        //    stopwatch.Reset();
-        //    stopwatch.Start();
-        //    answer = type.PartTwo();
-        //    Console.WriteLine($"\tPart 2 Solution: {type.PartTwo()} {stopwatch.Elapsed}");
-        //    stopwatch.Stop();
+            var answer = type.PartOne();
+            Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
+            stopwatch.Stop();
 
-        //    Console.WriteLine();
-        //}
+            stopwatch.Reset();
+            stopwatch.Start();
+            answer = type.PartTwo();
+            Console.WriteLine($"\tPart 2 Solution: {type.PartTwo()} {stopwatch.Elapsed}");
+            stopwatch.Stop();
 
-        overallElapsed.Stop();
-        Console.WriteLine($"Finished running after {overallElapsed.Elapsed}");
+            Console.WriteLine();
+        }
     }
 
     public static IEnumerable<T> GetEnumerableOfType<T>(params object[] constructorArgs) where T : class

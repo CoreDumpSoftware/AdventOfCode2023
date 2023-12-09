@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023.Extensions;
+﻿namespace AdventOfCode2023.Models;
 
 public struct Token(string value, char endingCharacter)
 {

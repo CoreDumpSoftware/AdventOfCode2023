@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Data;
 using AdventOfCode2023.Extensions;
+using AdventOfCode2023.Models;
 
 namespace AdventOfCode2023.Day5;
 

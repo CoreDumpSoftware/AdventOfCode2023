@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode2023.Day2;
+﻿using AdventOfCode2023.Models;
+
+namespace AdventOfCode2023.Day2;
 
 public struct CubeCount
 {
