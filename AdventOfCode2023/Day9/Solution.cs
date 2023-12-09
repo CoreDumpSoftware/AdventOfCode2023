@@ -1,27 +1,46 @@
-﻿namespace AdventOfCode2023.Day9;
+﻿using AdventOfCode2023.Extensions;
+
+namespace AdventOfCode2023.Day9;
 
 public class Solution : SolutionBase
 {
     protected override string PartOneInputFile { get; init; } = "9_1.txt";
     protected override string PartTwoInputFile { get; init; } = "9_1_sample.txt";
 
+    private long Recurse(long[] values, bool forwards = true)
+    {
+        if (values.All(v => v == 0))
+            return 0;
+
+        var decompositions = new long[values.Length - 1];
+
+        for (var i = 0; i < values.Length - 1; i++)
+            decompositions[i] = values[i + 1] - values[i];
+
+        var delta = Recurse(decompositions, forwards);
+
+        return forwards
+            ? values[values.Length - 1] + delta
+            : values[0] - delta;
+    }
+
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var result = GetFileContents(PartOneInputFile)
+            .Select(l => l.ParseLongs().ToArray())
+            .Select(x => Recurse(x, true))
+            .Sum();
 
-        var report = data.Select(l => new ReportLine(l)).ToList();
-        var extrapolationSums = report.Select(l => l.ExtrapolateForward()).Sum();
-
-        return extrapolationSums;
+        return result;
     }
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var result = GetFileContents(PartOneInputFile)
+            .Select(l => l.ParseLongs().ToArray())
+            .Select(x => Recurse(x, false))
+            .Sum();
 
-        var report = data.Select(l => new ReportLine(l)).ToList();
-        var extrapolationSums = report.Select(l => l.ExtrapolateBackward()).Sum();
-
-        return extrapolationSums;
+        return result;
     }
 }
