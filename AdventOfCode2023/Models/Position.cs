@@ -1,7 +1,11 @@
-﻿namespace AdventOfCode2023.Models;
+﻿using System.Text.RegularExpressions;
+
+namespace AdventOfCode2023.Models;
 
 public class Position(int x, int y)
 {
+    public static implicit operator Position (string input) => Parse(input);
+
     public int X { get; init; } = x;
     public int Y { get; init; } = y;
 
@@ -20,10 +24,13 @@ public class Position(int x, int y)
 
     public static bool operator ==(Position? left, Position? right)
     {
-        if (left == null! && right == null!)
+        var leftNull = ReferenceEquals(left, null);
+        var rightNull = ReferenceEquals(right, null);
+
+        if (leftNull && rightNull)
             return true;
 
-        if (left == null! || right == null!)
+        if (leftNull || rightNull)
             return false;
 
         return left.Equals(right);
@@ -32,5 +39,18 @@ public class Position(int x, int y)
     public static bool operator !=(Position? left, Position? right)
     {
         return !(left == right);
+    }
+
+    public static Position Parse(string input)
+    {
+        var match = Regex.Match(input, @"\((?'X'\d+), (?'Y'\d+)\)");
+
+        if (!match.Success)
+            throw new ArgumentException($"Malformed position string: \"{input}\"");
+
+        return new(
+            int.Parse(match.Groups["X"].Value),
+            int.Parse(match.Groups["Y"].Value)
+        );
     }
 }

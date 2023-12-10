@@ -28,3 +28,9 @@ public static class TextReaderExtensions
         }
     }
 }
+
+public static class CharExtensions
+{
+    public static bool IsOneOf(this char c, params char[] allowed) =>
+        allowed.Contains(c);
+}

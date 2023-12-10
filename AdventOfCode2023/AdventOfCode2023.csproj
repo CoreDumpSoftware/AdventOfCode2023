@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Day10\10.sample1.txt" />
+    <None Remove="Day10\10.sample2.txt" />
+    <None Remove="Day10\10.txt" />
     <None Remove="Day1\1_1.txt" />
     <None Remove="Day2\2_1.txt" />
     <None Remove="Day3\3_1.txt" />
@@ -27,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Day10\10.sample1.txt" />
+    <EmbeddedResource Include="Day10\10.sample2.txt" />
+    <EmbeddedResource Include="Day10\10.txt" />
     <EmbeddedResource Include="Day7\7_1_sample2.txt" />
   </ItemGroup>
 

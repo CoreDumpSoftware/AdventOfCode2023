@@ -66,7 +66,7 @@ public class Solution : SolutionBase
 
         var result = race.Time - lowerInvalid - upperInvalid;
 
-        return 0;
+        return result;
     }
 
     private record Race(long Time, long Record);
