@@ -6,6 +6,9 @@ public abstract class SolutionBase
 {
     protected abstract string PartOneInputFile { get; init; }
     protected abstract string PartTwoInputFile { get; init; }
+    protected virtual string SampleInputOne { get; set; }
+    protected virtual string SampleInputTwo { get; set; }
+    protected virtual string SampleInputThree { get; set; }
 
     public abstract long PartOne();
 

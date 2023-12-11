@@ -4,6 +4,7 @@
 public enum Direction : byte
 {
     Undefined = 0,
+    Same = 0,
     North = 1,
     West = 2,
     South = 4,

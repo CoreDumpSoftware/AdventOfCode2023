@@ -32,7 +32,7 @@ public class Range<T>(T start, T end) : IEnumerable<int>
     );
 
     public override string ToString() =>
-        $"{start} >= n <= {end}";
+        $"{start} >= n < {end}";
 
     IEnumerator IEnumerable.GetEnumerator() =>
         GetEnumerator();

@@ -1,4 +1,5 @@
 ﻿namespace AdventOfCode2023.Extensions;
+
 public static class StringExtensions
 {
     public static IEnumerable<int> ParseInts(this string input, char delimiter = ' ') =>
