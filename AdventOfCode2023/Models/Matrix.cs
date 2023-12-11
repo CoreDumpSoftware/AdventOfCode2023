@@ -31,8 +31,8 @@ public class Matrix<T>
     public Matrix(T[][] input)
     {
         _matrix = input;
-        HorizontalBounds = new Range<int>(0, input[0].Length - 1);
-        VerticalBounds = new Range<int>(0, input.Length - 1);
+        HorizontalBounds = new Range<int>(0, input[0].Length);
+        VerticalBounds = new Range<int>(0, input.Length);
     }
 
     public Matrix(int dimensions) : this(dimensions, dimensions) { }
@@ -51,7 +51,7 @@ public class Matrix<T>
     {
         CheckBounds(x, y);
 
-        var range = new Range<int>(-1, 1);
+        var range = new Range<int>(-1, 2);
 
         if (skipCorners)
         {
@@ -73,7 +73,7 @@ public class Matrix<T>
 
                 foreach (var xIndex in range.Select(v => v + x))
                 {
-                    if (yIndex == x && xIndex == y)
+                    if (yIndex == y && xIndex == x)
                         continue;
 
                     if (CheckHorizontalBounds(xIndex))

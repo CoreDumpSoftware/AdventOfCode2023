@@ -23,4 +23,45 @@ public static class DirectionExtensions
 
         return result;
     }
+
+    public static Position ExtendByDirection(this Position input, Direction direction) => direction switch
+    {
+        Direction.North => new(input.X, input.Y - 1),
+        Direction.South => new(input.X, input.Y + 1),
+        Direction.West => new(input.X - 1, input.Y),
+        Direction.East => new(input.X + 1, input.Y),
+        _ => throw new DirectionException("Invalid direction to extend position.")
+    };
+
+    public static char GetExtensionPipePiece(this Direction direction) => direction switch
+    {
+        Direction.North or Direction.South => '|',
+        Direction.West or Direction.East => '-',
+        _ => throw new DirectionException("Invalid direction to get extension pipe piece.")
+    };
+
+    public static char GetFillPieceByDirection(this char c, Direction direction) => direction switch
+    {
+        Direction.North => c switch
+        {
+            'S' or 'J' or 'L' => '|',
+            _ => ' '
+        },
+        Direction.South => c switch
+        {
+            'S' or 'F' or '7' => '|',
+            _ => ' '
+        },
+        Direction.West => c switch
+        {
+            'S' or 'J' or '7' => '-',
+            _ => ' '
+        },
+        Direction.East => c switch
+        {
+            'S' or 'L' or 'F' => '-',
+            _ => ' '
+        },
+        _ => throw new ArgumentException()
+    };
 }

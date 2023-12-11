@@ -4,8 +4,8 @@ using System.Numerics;
 namespace AdventOfCode2023.Models;
 
 /// <summary>
-/// Represent a range of numbers inclusive of the start and end values.
-/// For example, a start of 0 and end of 100 results in a range of 0, 1, 2, ..., 98, 99, 100.
+/// Represent a range of numbers from the start value until the end value.
+/// For example, a start of 0 and end of 100 results in a range of 0, 1, 2, ..., 98, 99.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <param name="start"></param>
@@ -15,10 +15,10 @@ public class Range<T>(T start, T end) : IEnumerable<int>
 {
     public T Start { get; set; } = start;
     public T End { get; set; } = end;
-    public long Length { get; set; } = long.CreateChecked(end) - long.CreateChecked(start) + 1;
+    public long Length { get; set; } = long.CreateChecked(end) - long.CreateChecked(start);
 
     public bool Contains(T value) =>
-        value.CompareTo(Start) >= 0 && value.CompareTo(End) <= 0;
+        value.CompareTo(Start) >= 0 && value.CompareTo(End) < 0;
 
     public IEnumerator<int> GetEnumerator() => GetValues().GetEnumerator();
 

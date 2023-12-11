@@ -19,16 +19,16 @@ internal class Program
             var solution = new Day10.Solution();
 
             var stopwatch = new Stopwatch();
+            //stopwatch.Start();
+
+            //var answer = solution.PartOne();
+            //stopwatch.Stop();
+
+            //Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
+
             stopwatch.Start();
 
-            var answer = solution.PartOne();
-            stopwatch.Stop();
-
-            Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
-
-            stopwatch.Start();
-
-            answer = solution.PartTwo();
+            var answer = solution.PartTwo();
             stopwatch.Stop();
 
             Console.WriteLine($"\tPart 2 Solution: {answer} \t\t {stopwatch.Elapsed}");
