@@ -16,13 +16,15 @@ internal class Program
             var overallElapsed = new Stopwatch();
             overallElapsed.Start();
 
-            var solution = new Day11.Solution();
+            var solution = new Day12.Solution();
+            long answer = 0;
 
             var stopwatch = new Stopwatch();
-            stopwatch.Start();
+            //stopwatch.Start();
 
-            var answer = solution.PartOne();
-            stopwatch.Stop();
+            //answer = solution.PartOne();
+            //stopwatch.Stop();
+            //stopwatch.Restart();
 
             Console.WriteLine($"\tPart 1 Solution: {answer} \t\t {stopwatch.Elapsed}");
 
