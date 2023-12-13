@@ -1,4 +1,5 @@
-﻿using AdventOfCode2023.Models;
+﻿using AdventOfCode2023.Extensions;
+using AdventOfCode2023.Models;
 
 namespace AdventOfCode2023.Tests;
 
@@ -32,5 +33,19 @@ public class MatrixTests
 
         adjacentValues.Length.Should().Be(expectedPositions.Length);
         positionStrings.Select(Position.Parse).Should().BeEquivalentTo(adjacentValues.Cast<Position>());
+    }
+}
+
+public class IntExtensionTests
+{
+    [Theory]
+    [InlineData(7, 3, 2)]
+    [InlineData(4, 2, 1, 2)]
+    public void TestGetBitDifferences(int left, int right, params int[] expectedIndices)
+    {
+        var differenceIndicies = left.GetBitDifferences(right).ToArray();
+
+        differenceIndicies.Count().Should().Be(expectedIndices.Count());
+        differenceIndicies.Should().BeEquivalentTo(expectedIndices);
     }
 }
