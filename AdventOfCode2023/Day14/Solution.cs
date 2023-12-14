@@ -39,22 +39,12 @@ public class Solution : SolutionBase
         public int Load { get; set; }
         public List<int> Indices { get; set; }
 
-        public Pattern(char[][] platform, int sourceIndex, int load, int height, int width)
+        public Pattern(char[][] platform, int hash, int sourceIndex, int load, int height, int width)
         {
             Platform = platform.Select(r => r.ToArray()).ToArray();
-            Hash = CalculateHash(platform, height, width);
+            Hash = hash;
             Indices = [sourceIndex];
             Load = load;
-        }
-
-        private static int CalculateHash(char[][] matrix, int height, int width)
-        {
-            var hash = 17;
-            for (int y = 0; y < height; y++)
-                for (int x = 0; x < width; x++)
-                    hash = hash * 31 + matrix[y][x];
-
-            return hash;
         }
     }
 
@@ -83,7 +73,7 @@ public class Solution : SolutionBase
                 pattern.Indices.Add(i);
             else
             {
-                pattern = new Pattern(platform, i, CalculateLoadFromDirection(platform, height, width, Direction.North), height, width);
+                pattern = new Pattern(platform, hash, i, CalculateLoadFromDirection(platform, height, width, Direction.North), height, width);
 
                 hashDictionary.Add(hash, pattern);
             }
