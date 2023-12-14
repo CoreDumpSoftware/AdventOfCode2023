@@ -101,6 +101,16 @@ public class Solution : SolutionBase
             })
             .ToArray();
 
+        // do some math here to find the right answer
+        // There's probably some fancy math to do this without
+        // guess and check.
+
+        // I essentially just filtered out the patterns where the indices were all odd since
+        // my solution produced a rotation of 22 different patterns after the initial chaos
+        // was sorted out. From there it was pretty much looking at the starting index and
+        // figuring out which one would eventually go to a billion. Lots of n + (22 * m)
+        // entries in a calculator :-)
+
         return 0;
     }
 
