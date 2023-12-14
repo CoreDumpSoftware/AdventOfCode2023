@@ -4,12 +4,11 @@ namespace AdventOfCode2023.Day2;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "2_1.txt";
-    protected override string PartTwoInputFile { get; init; } = null!;
+    protected override string SolutionInput { get; init; } = "2_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var gameIdRegex = new Regex(@"Game (?'Id'\d+)");
         var colorRegex = new Regex(@"(((?'Red' \d+) red)|((?'Blue' \d+) blue)|((?'Green' \d+) green))");
 
@@ -46,7 +45,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var gameIdRegex = new Regex(@"Game (?'Id'\d+)");
         var colorRegex = new Regex(@"(((?'Red' \d+) red)|((?'Blue' \d+) blue)|((?'Green' \d+) green))");
 

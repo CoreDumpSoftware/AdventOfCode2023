@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023.Day10;
+﻿namespace AdventOfCode2023.Models;
 
 [Flags]
 public enum Direction : byte
@@ -15,5 +15,10 @@ public enum Direction : byte
     SouthWest = South | West,
     SouthEast = South | East,
 
-    Invalid= 0xFF
+    Invalid = 0xFF
+}
+
+public class DirectionException : Exception
+{
+    public DirectionException(string message, Exception innerException = null) : base(message, innerException) { }
 }

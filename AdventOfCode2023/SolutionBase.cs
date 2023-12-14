@@ -4,8 +4,7 @@ namespace AdventOfCode2023;
 
 public abstract class SolutionBase
 {
-    protected abstract string PartOneInputFile { get; init; }
-    protected abstract string PartTwoInputFile { get; init; }
+    protected abstract string SolutionInput { get; init; }
     protected virtual string SampleInputOne { get; set; }
     protected virtual string SampleInputTwo { get; set; }
     protected virtual string SampleInputThree { get; set; }

@@ -2,12 +2,11 @@
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "4_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "4_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "4_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var sum = 0;
 
         foreach (var line in data)
@@ -32,7 +31,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var instanceCounts = new List<int>();
 
         var yIndex = 1;

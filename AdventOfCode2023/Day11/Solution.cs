@@ -9,8 +9,7 @@ public class Solution : SolutionBase
 {
     private const char FillCharacter = 'x';
 
-    protected override string PartOneInputFile { get; init; } = "11.txt";
-    protected override string PartTwoInputFile { get; init; } = null;
+    protected override string SolutionInput { get; init; } = "11.txt";
     protected override string SampleInputOne { get; set; } = "11_sample_1.txt";
 
     public override long PartOne()
@@ -22,7 +21,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var result = CalculateGalaxyDistanceSums(PartOneInputFile, 1000000);
+        var result = CalculateGalaxyDistanceSums(SolutionInput, 1000000);
 
         return result;
     }

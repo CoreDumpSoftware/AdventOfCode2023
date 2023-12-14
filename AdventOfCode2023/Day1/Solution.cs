@@ -2,12 +2,11 @@
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "1_1.txt";
-    protected override string PartTwoInputFile { get; init; } = null!;
+    protected override string SolutionInput { get; init; } = "1_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var sum = 0;
 
         foreach (var line in data)
@@ -23,7 +22,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var sum = 0;
 
         foreach (var line in data)

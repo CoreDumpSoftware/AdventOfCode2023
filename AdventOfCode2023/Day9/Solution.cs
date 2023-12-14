@@ -4,8 +4,7 @@ namespace AdventOfCode2023.Day9;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "9_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "9_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "9_1.txt";
 
     private long GetNextInSequence(long[] values)
     {
@@ -24,7 +23,7 @@ public class Solution : SolutionBase
 
     public override long PartOne()
     {
-        var result = GetFileContents(PartOneInputFile)
+        var result = GetFileContents(SolutionInput)
             .Select(l => l.ParseLongs().ToArray())
             .Select(GetNextInSequence)
             .Sum();
@@ -34,7 +33,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var result = GetFileContents(PartOneInputFile)
+        var result = GetFileContents(SolutionInput)
             .Select(l => l.ParseLongs().Reverse().ToArray())
             .Select(GetNextInSequence)
             .Sum();

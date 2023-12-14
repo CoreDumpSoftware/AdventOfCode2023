@@ -7,12 +7,11 @@ namespace AdventOfCode2023.Day5;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "5_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "5_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "5_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile).ToList();
+        var data = GetFileContents(SolutionInput).ToList();
 
         var seeds = data[0][(data[0].IndexOf(':') + 2)..].ParseLongs().ToList();
 
@@ -79,7 +78,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile).ToList();
+        var data = GetFileContents(SolutionInput).ToList();
 
         var seeds = ParsePartTwoSeeds(data[0]).OrderBy(x => x.Start).ToList();
 

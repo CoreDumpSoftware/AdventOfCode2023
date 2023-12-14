@@ -16,7 +16,7 @@ internal class Program
             var overallElapsed = new Stopwatch();
             overallElapsed.Start();
 
-            var solution = new Day13.Solution();
+            var solution = new Day14.Solution();
             long answer = 0;
 
             var stopwatch = new Stopwatch();

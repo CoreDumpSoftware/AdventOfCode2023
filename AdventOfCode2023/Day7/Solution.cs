@@ -2,12 +2,11 @@
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "7_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "7_1_sample2.txt";
+    protected override string SolutionInput { get; init; } = "7_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var hands = new List<Hand>();
 
         List<char> cardsPriority = [ '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' ];
@@ -32,7 +31,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var hands = new List<Hand>();
 
         List<char> cardsPriority = ['J', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A'];

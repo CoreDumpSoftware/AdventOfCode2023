@@ -4,12 +4,11 @@ namespace AdventOfCode2023.Day8;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "8_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "8_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "8_1.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var directions = data.First();
 
         var directionsDictionary = data.Skip(1)
@@ -49,7 +48,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var directions = data.First();
 
         var nodeMap = data.Skip(1)

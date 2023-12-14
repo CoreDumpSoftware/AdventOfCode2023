@@ -4,14 +4,13 @@ namespace AdventOfCode2023.Day13;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "13.txt";
-    protected override string PartTwoInputFile { get; init; }
+    protected override string SolutionInput { get; init; } = "13.txt";
     protected override string SampleInputOne { get; set; } = "13_sample_1.txt";
     protected override string SampleInputTwo { get; set; } = "13_sample_2.txt";
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile, true).ToArray();
+        var data = GetFileContents(SolutionInput, true).ToArray();
         var knownValues = new Dictionary<string, BinaryString>();
         var sum = 0;
 
@@ -93,7 +92,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile, true).ToArray();
+        var data = GetFileContents(SolutionInput, true).ToArray();
         var knownValues = new Dictionary<string, BinaryString>();
         var sum = 0;
 

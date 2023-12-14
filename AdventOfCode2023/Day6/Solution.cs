@@ -5,12 +5,11 @@ namespace AdventOfCode2023.Day6;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "6_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "6_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "6_1.txt";
 
     public override long PartOne()
     {
-        var races = GetRacesPartOne(GetFileContents(PartOneInputFile)).ToArray();
+        var races = GetRacesPartOne(GetFileContents(SolutionInput)).ToArray();
         long product = 0;
 
         foreach (var race in races)
@@ -34,7 +33,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var timeLine = data.First();
         var recordLine = data.Skip(1).First();
 

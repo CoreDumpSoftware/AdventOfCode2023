@@ -2,8 +2,7 @@
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "12.txt";
-    protected override string PartTwoInputFile { get; init; } = null!;
+    protected override string SolutionInput { get; init; } = "12.txt";
     protected override string SampleInputOne { get; set; } = "12_sample1.txt";
 
     private enum Status : byte
@@ -16,7 +15,7 @@ public class Solution : SolutionBase
 
     public override long PartOne()
     {
-        var lines = GetFileContents(PartOneInputFile);
+        var lines = GetFileContents(SolutionInput);
         var sum = 0L;
         var debug = true;
         var lineNumber = 1;
@@ -37,7 +36,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var lines = GetFileContents(PartOneInputFile);
+        var lines = GetFileContents(SolutionInput);
         var sum = 0L;
         var debug = true;
         var lineNumber = 1;

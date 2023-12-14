@@ -6,8 +6,7 @@ namespace AdventOfCode2023.Day3;
 
 public class Solution : SolutionBase
 {
-    protected override string PartOneInputFile { get; init; } = "3_1.txt";
-    protected override string PartTwoInputFile { get; init; } = "3_1_sample.txt";
+    protected override string SolutionInput { get; init; } = "3_1.txt";
 
     private static IEnumerable<Position> GetAdjectPositions(
         Position position,
@@ -56,7 +55,7 @@ public class Solution : SolutionBase
 
     public override long PartOne()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var regex = new Regex(@"\d+");
         var yIndex = 0;
         var matrix = new List<string>();
@@ -104,7 +103,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(PartOneInputFile);
+        var data = GetFileContents(SolutionInput);
         var regex = new Regex(@"\d+");
         var yIndex = 0;
         var matrix = new List<string>();

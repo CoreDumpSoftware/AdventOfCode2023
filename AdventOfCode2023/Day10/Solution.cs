@@ -10,12 +10,11 @@ public class Solution : SolutionBase
     private static readonly Range<int> MatrixRange = new(0, MatrixDimensions - 1);
     private static readonly ValuePosition<char> Start = new('S', 25, 42);
 
-    protected override string PartOneInputFile { get; init; } = "10.txt"; // S @ (25, 42)
-    protected override string PartTwoInputFile { get; init; } = "10.sample1.txt";
+    protected override string SolutionInput { get; init; } = "10.txt"; // S @ (25, 42)
 
     public override long PartOne()
     {
-        var matrix = GetMatrix(GetFileContents(PartOneInputFile));
+        var matrix = GetMatrix(GetFileContents(SolutionInput));
         var visitedPositions = new List<Position>();
 
         var startConnectingPieces = matrix.GetAdjacentValues(Start, true)
@@ -50,7 +49,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var file = PartOneInputFile;
+        var file = SolutionInput;
 
         var matrix = GetMatrix(GetFileContents(file));
         var width = matrix.HorizontalBounds.End;
