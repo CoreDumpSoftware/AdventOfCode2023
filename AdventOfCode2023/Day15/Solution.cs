@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdventOfCode2023.Extensions;
+﻿using AdventOfCode2023.Extensions;
 
 namespace AdventOfCode2023.Day15;
 
@@ -14,7 +7,100 @@ public class Solution : SolutionBase
     protected override string SolutionInput { get; init; } = "15.txt";
     protected override string SampleInputOne { get; set; } = "15_sample.txt";
 
-    private class Lens(string label, int focalLength)
+    public class Box
+    {
+        private LensNode _root = null!;
+        private LensNode _last = null!;
+
+        public Lens? GetByLabel(string label)
+        {
+            return LookupNode(label)?.Lens;
+        }
+
+        public void AddOrUpdate(string label, int focalLength)
+        {
+            var node = LookupNode(label);
+            if (node == null)
+            {
+                var lens = new Lens(label, focalLength);
+
+                if (_root == null)
+                {
+                    _root = new LensNode { Lens = lens };
+                    _last = _root;
+                }
+                else
+                {
+                    var next = new LensNode { Lens = lens, Previous = _last };
+                    _last.Next = next;
+                    _last = next;
+                }
+            }
+            else
+            {
+                node.Lens.FocalLength = focalLength;
+            }
+        }
+
+        public void Remove(string label)
+        {
+            var node = LookupNode(label);
+            if (node == null)
+                return;
+
+            var prev = node.Previous;
+            var next = node.Next;
+
+            if (prev == null) // removing root...
+            {
+                _root = next;
+
+                return;
+            }
+
+            if (node == _last)
+                _last = node.Previous!;
+
+            if (prev != null)
+            {
+                prev.Next = next;
+            }
+            if (next != null)
+            {
+                next.Previous = prev;
+            }
+
+
+        }
+
+        public IEnumerable<Lens> GetLenses()
+        {
+            var node = _root;
+            while (node != null)
+            {
+                yield return node.Lens;
+                node = node.Next;
+            }
+        }
+
+        private LensNode LookupNode(string label)
+        {
+            var node = _root;
+            while (node != null && node.Lens.Label != label)
+                node = node.Next;
+
+            return node;
+        }
+    }
+
+    public class LensNode
+    {
+        public Lens Lens { get; set; }
+        public LensNode? Previous { get; set; }
+        public LensNode? Next { get; set; }
+    }
+
+    public class Lens(string label, int focalLength)
     {
         public string Label { get; init; } = label;
         public int FocalLength { get; set; } = focalLength;
@@ -32,7 +118,7 @@ public class Solution : SolutionBase
 
         while (!string.IsNullOrEmpty(token.Value))
         {
-            var result = CalculateHash(token.Value, knownHashes);
+            var result = CalculateHash(token.Value);
             sum += result;
 
             token = stringReader.ReadUntil(',');
@@ -47,67 +133,57 @@ public class Solution : SolutionBase
         using var stringReader = new StringReader(line);
         var token = stringReader.ReadUntil(',');
 
-        var labelHashes = new Dictionary<string, int>();
-        var lensBoxes = new Dictionary<int, List<Lens>>();
+        var boxes = new Box[256];
 
         while (!string.IsNullOrEmpty(token.Value))
         {
             var last = token.Value[^1];
             var isRemove = last == '-';
             var label = token.Value[..^(isRemove ? 1 : 2)];
-            var labelHash = CalculateHash(label, labelHashes);
+            var labelHash = CalculateHash(label);
+            var box = boxes[labelHash];
 
             // remove
-            if (last == '-' && lensBoxes.TryGetValue(labelHash, out var box))
+            if (last == '-' && box != null)
             {
-                var lens = box.FirstOrDefault(l => l.Label == label);
-
-                if (lens != null)
-                    box.Remove(lens);
+                box.Remove(label);
             }
             // add or update
             else
             {
                 var focalLength = last - '0';
 
-                if (!lensBoxes.TryGetValue(labelHash, out box))
+                if (box == null)
                 {
-                    box = [new(label, focalLength)];
-                    lensBoxes.Add(labelHash, box);
-                }
-                else
-                {
-                    var lens = box.FirstOrDefault(l => l.Label == label);
-
-                    if (lens != null)
-                        lens.FocalLength = focalLength;
-                    else
-                        box.Add(new(label, focalLength));
+                    box = new Box();
+                    boxes[labelHash] = box;
                 }
 
+                box.AddOrUpdate(label, focalLength);
             }
 
             token = stringReader.ReadUntil(',');
         }
 
         var sum = 0;
-        foreach (var kvp in lensBoxes.Where(kvp => kvp.Value.Any()).OrderBy(kvp => kvp.Key))
+        for (var i = 0; i < 256; i++)
         {
-            for (var i = 0; i <  kvp.Value.Count; i++)
+            var box = boxes[i];
+            if (box == null)
+                continue;
+
+            var result = 0;
+            foreach ((var lens, var index) in box.GetLenses().Select((l, i) => (l, i)))
             {
-                var result = (kvp.Key + 1) * (i + 1) * kvp.Value[i].FocalLength;
-                sum += result;
+                sum += (i + 1) * (index + 1) * lens.FocalLength;
             }
         }
 
         return sum;
     }
 
-    public int CalculateHash(string input, Dictionary<string, int> knownHashes)
+    public int CalculateHash(string input)
     {
-        if (knownHashes.TryGetValue(input, out var hash))
-            return hash;
-
         var result = 0;
 
         foreach (var c in input)
@@ -116,8 +192,6 @@ public class Solution : SolutionBase
             result *= 17;
             result %= 256;
         }
-
-        knownHashes.Add(input, result);
 
         return result;
     }
