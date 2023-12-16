@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -49,6 +50,8 @@ public class Solution : SolutionBase
 
         var labelHashes = new Dictionary<string, int>();
         var lensBoxes = new Dictionary<int, List<Lens>>();
+
+        var sw = Stopwatch.StartNew();
 
         while (!string.IsNullOrEmpty(token.Value))
         {
@@ -99,6 +102,9 @@ public class Solution : SolutionBase
                 sum += result;
             }
         }
+
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
 
         return sum;
     }

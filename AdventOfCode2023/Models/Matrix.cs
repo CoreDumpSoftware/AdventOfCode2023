@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode2023.Models;
 
 public class Matrix<T>
-    where T: new()
+    //where T: new()
 {
     protected readonly List<List<T>> _matrix;
     public Range<int> VerticalBounds { get; protected set; }
@@ -11,13 +11,13 @@ public class Matrix<T>
     {
         get
         {
-            CheckBounds(x, y);
+            ThrowIfOutOfBounds(x, y);
 
             return _matrix[y][x];
         }
         set
         {
-            CheckBounds(x, y);
+            ThrowIfOutOfBounds(x, y);
 
             _matrix[y][x] = value;
         }
@@ -45,6 +45,8 @@ public class Matrix<T>
 
         _matrix = VerticalBounds.Select(r => new List<T>((int)HorizontalBounds.Length)).ToList();
     }
+
+    public Matrix<T> Clone() => new Matrix<T>(JsonSerializer.Deserialize<T[][]>(JsonSerializer.Serialize(_matrix)));
 
     public void InsertRow(int index, Func<Position, T> setValueFunction = null!)
     {
@@ -91,7 +93,7 @@ public class Matrix<T>
 
     public IEnumerable<ValuePosition<T>> GetAdjacentValues(int x, int y, bool skipCorners)
     {
-        CheckBounds(x, y);
+        ThrowIfOutOfBounds(x, y);
 
         var range = new Range<int>(-1, 2);
 
@@ -140,7 +142,7 @@ public class Matrix<T>
     public T[][] ToArray() =>
         _matrix.Select(r => r.ToArray()).ToArray();
 
-    protected void CheckBounds(int x, int y)
+    protected void ThrowIfOutOfBounds(int x, int y)
     {
         var exceptions = new List<Exception>();
 
@@ -153,6 +155,12 @@ public class Matrix<T>
         if (exceptions.Any())
             throw new AggregateException(exceptions.ToArray());
     }
+
+
+    public bool CheckBounds(Position p) => CheckBounds(p.X, p.Y);
+
+    public bool CheckBounds(int x, int y) =>
+        CheckHorizontalBounds(x) && CheckVerticalBounds(y);
 
     protected bool CheckHorizontalBounds(int xPos) =>
         HorizontalBounds.Contains(xPos);
