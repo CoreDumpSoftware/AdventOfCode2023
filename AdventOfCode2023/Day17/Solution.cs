@@ -70,8 +70,8 @@ public class Solution : SolutionBase
             // Retrieves the next possible paths
             var adjacents = matrix.GetAdjacentValues(current.Position, true)
                 .Where(n => !current.Previous.Contains(n))
-                .Select(n => CreatePathFromAdjacent(n, current, end))
-                .Where(VerifyContiguousPathing);
+                .Select(n => Path.CreatePathFromAdjacent(n, current, end))
+                .Where(p => p.VerifyContiguousPathing());
 
             foreach (var node in adjacents)
             {
@@ -106,8 +106,6 @@ public class Solution : SolutionBase
                     added = true;
                 }
 
-                //stack.OrderBy(n => n.Total);
-
                 // Insert stuff commented above since it seems like my FindInsertIndex is buggy
                 // Using a trusted sort didn't give a different answer though...
                 if (added)
@@ -119,35 +117,6 @@ public class Solution : SolutionBase
         }
 
         return visitedNodes[end];
-    }
-
-    // Create a new path with history of where it traveled from
-    private static Path CreatePathFromAdjacent(ValuePosition<int> node, Path top, Position end)
-    {
-        var previous = new List<Position> { top.Position };
-        previous.AddRange(top.Previous);
-
-        return new Path
-        {
-            Position = node,
-            HeatLoss = node.Value + top.HeatLoss,
-            Previous = previous,
-            DistanceToEnd = node.GetDistanceTo(end)
-        };
-    }
-
-    // Check the current and last 4 previous positions to determine the directions taken
-    private static bool VerifyContiguousPathing(Path path)
-    {
-        if (path.Previous.Count < 4)
-            return true;
-
-        var next = path.Position.GetDirectionTo(path.Previous[0]!);
-        var firstPrev = path.Previous[0]!.GetDirectionTo(path.Previous[1]!);
-        var secondPrev = path.Previous[1]!.GetDirectionTo(path.Previous[2]!);
-        var thirdPrev = path.Previous[2]!.GetDirectionTo(path.Previous[3]!);
-
-        return new[] { next, firstPrev, secondPrev, thirdPrev }.Distinct().Count() > 1;
     }
 
     private static void PrintPath(Path path, int height, int width)
@@ -217,6 +186,33 @@ public class Path
 
     public override string ToString() =>
         $"{Position}: {HeatLoss}+{DistanceToEnd}={Total}";
+
+    public static Path CreatePathFromAdjacent(ValuePosition<int> node, Path top, Position end)
+    {
+        var previous = new List<Position> { top.Position };
+        previous.AddRange(top.Previous);
+
+        return new Path
+        {
+            Position = node,
+            HeatLoss = node.Value + top.HeatLoss,
+            Previous = previous,
+            DistanceToEnd = node.GetDistanceTo(end)
+        };
+    }
+
+    public bool VerifyContiguousPathing()
+    {
+        if (Previous.Count < 4)
+            return true;
+
+        var next = Position.GetDirectionTo(Previous[0]!);
+        var firstPrev = Previous[0]!.GetDirectionTo(Previous[1]!);
+        var secondPrev = Previous[1]!.GetDirectionTo(Previous[2]!);
+        var thirdPrev = Previous[2]!.GetDirectionTo(Previous[3]!);
+
+        return new[] { next, firstPrev, secondPrev, thirdPrev }.Distinct().Count() > 1;
+    }
 }
 
 
