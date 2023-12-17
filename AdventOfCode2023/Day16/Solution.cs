@@ -86,7 +86,6 @@ public class Solution : SolutionBase
 
             while (queue.Any())
             {
-                steps++;
                 var path = queue.Dequeue();
                 var tile = matrix[path.Position.Y][path.Position.X];
 

@@ -64,4 +64,12 @@ public static class DirectionExtensions
         },
         _ => throw new ArgumentException()
     };
+
+    public static string ToSingleCharString(this Direction d) => d switch
+    {
+        Direction.North => "^",
+        Direction.West => "<",
+        Direction.South => "v",
+        Direction.East => ">"
+    };
 }

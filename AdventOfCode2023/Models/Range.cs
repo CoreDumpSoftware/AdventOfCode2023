@@ -15,7 +15,7 @@ public class Range<T>(T start, T end) : IEnumerable<int>
 {
     public T Start { get; set; } = start;
     public T End { get; set; } = end;
-    public long Length { get; set; } = long.CreateChecked(end) - long.CreateChecked(start);
+    public int Length { get; set; } = int.CreateChecked(end) - int.CreateChecked(start);
 
     public bool Contains(T value) =>
         value.CompareTo(Start) >= 0 && value.CompareTo(End) < 0;
