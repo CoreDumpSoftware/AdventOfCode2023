@@ -1,4 +1,5 @@
-﻿using AdventOfCode2023.Extensions;
+﻿using System.Diagnostics;
+using AdventOfCode2023.Extensions;
 
 namespace AdventOfCode2023.Day15;
 
