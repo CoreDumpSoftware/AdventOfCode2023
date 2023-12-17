@@ -135,6 +135,8 @@ public class Solution : SolutionBase
 
         var boxes = new Box[256];
 
+        var sw = Stopwatch.StartNew();
+
         while (!string.IsNullOrEmpty(token.Value))
         {
             var last = token.Value[^1];
@@ -178,6 +180,9 @@ public class Solution : SolutionBase
                 sum += (i + 1) * (index + 1) * lens.FocalLength;
             }
         }
+
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
 
         return sum;
     }
