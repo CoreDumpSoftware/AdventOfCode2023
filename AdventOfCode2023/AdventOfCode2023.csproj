@@ -28,6 +28,10 @@
     <None Remove="Day17\17.txt" />
     <None Remove="Day17\17_sample.txt" />
     <None Remove="Day17\17_sample3.txt" />
+    <None Remove="Day18\18.txt" />
+    <None Remove="Day18\18_sample.txt" />
+    <None Remove="Day19\19.txt" />
+    <None Remove="Day19\19_sample.txt" />
     <None Remove="Day1\1_1.txt" />
     <None Remove="Day2\2_1.txt" />
     <None Remove="Day3\3_1.txt" />
@@ -71,6 +75,10 @@
     <EmbeddedResource Include="Day17\17_sample2.txt" />
     <EmbeddedResource Include="Day17\17.txt" />
     <EmbeddedResource Include="Day17\17_sample.txt" />
+    <EmbeddedResource Include="Day18\18.txt" />
+    <EmbeddedResource Include="Day18\18_sample.txt" />
+    <EmbeddedResource Include="Day19\19_sample.txt" />
+    <EmbeddedResource Include="Day19\19.txt" />
     <EmbeddedResource Include="Day7\7_1_sample2.txt" />
   </ItemGroup>
 
