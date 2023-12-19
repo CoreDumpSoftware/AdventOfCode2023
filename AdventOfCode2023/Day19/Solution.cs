@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using AdventOfCode2023.Models;
-using static AdventOfCode2023.Day19.Solution;
 
 namespace AdventOfCode2023.Day19;
 
@@ -46,7 +45,7 @@ public class Solution : SolutionBase
 
     public override long PartTwo()
     {
-        var data = GetFileContents(SampleInputOne);
+        var data = GetFileContents(SolutionInput);
         var workflows = new Dictionary<string, Workflow>();
 
         foreach (var line in data)
@@ -61,7 +60,7 @@ public class Solution : SolutionBase
         var factory = new RuleTreeFactory(workflows);
         var root = factory.Create();
 
-        PrintTreeDFS(root);
+        //PrintTreeDFS(root);
 
         var acceptPaths = new List<List<RulePath>>();
         GetAcceptPaths(root, acceptPaths);
@@ -74,7 +73,7 @@ public class Solution : SolutionBase
             sum += rangeProduct;
         }
 
-        return 0;
+        return sum;
     }
 
     public static int ProcessWorkflow(string start, Dictionary<string, Workflow> workflows, Part part)
@@ -101,9 +100,9 @@ public class Solution : SolutionBase
         {
             var leftPath = path;
             if (string.IsNullOrEmpty(leftPath))
-                leftPath = $"TRUE:({node.Name})";
+                leftPath = $"({node.Name})";
             else
-                leftPath = leftPath + $", TRUE:({node.Name})";
+                leftPath = leftPath + $", ({node.Name})";
 
             PrintTreeDFS(node.Left, leftPath);
         }
@@ -112,9 +111,9 @@ public class Solution : SolutionBase
         {
             var rightPath = path;
             if (string.IsNullOrEmpty(rightPath))
-                rightPath = $"FALSE:({node.Name})";
+                rightPath = $"!({node.Name})";
             else
-                rightPath = rightPath + $", FALSE:({node.Name})";
+                rightPath = rightPath + $", !({node.Name})";
 
             PrintTreeDFS(node.Right, rightPath);
         }
@@ -263,7 +262,7 @@ public class Workflow
         foreach (Match match in regex.Matches(rulesString))
         {
             var category = match.Groups["Category"].Value;
-            var op = match.Groups["Operator"].Value == "<" ? Operator.LessThan : Operator.GreaterThan;
+            var op = match.Groups["Operator"].Value;
             int.TryParse(match.Groups["Amount"].Value, out var amount);
             var target = match.Groups["Target"].Value;
 
@@ -355,16 +354,16 @@ public class Part
 
 public class Rule
 {
-    protected readonly Operator? _operator;
+    protected readonly string? _operator;
 
-    public Operator? Operator {
+    public string? Operator {
         get => _operator;
         init
         {
             _operator = value;
             if (_operator != null)
             {
-                _compareFn = _operator == Day19.Operator.LessThan
+                _compareFn = _operator == "<"
                     ? LessThan
                     : GreaterThan;
             }
@@ -385,8 +384,7 @@ public class Rule
     public override string ToString() => GetType() == typeof(Rule) ? TargetName : GetExpressionString();
 
     protected virtual string _condition { get; set; } = null!;
-    protected virtual string GetExpressionString() => $"{_condition.ToLower()}{GetOperatorString()}{Amount}";
-    protected string GetOperatorString() => _operator == Day19.Operator.LessThan ? "<" : ">";
+    protected virtual string GetExpressionString() => $"{_condition.ToLower()}{_operator}{Amount}";
 
     public virtual void UpdateRanges(PartRanges ranges, bool isTrue)
     {
@@ -403,22 +401,22 @@ public class XRule : Rule
     {
         if (isTrue)
         {
-            if (Operator == Day19.Operator.LessThan && ranges.X.Max > Amount - 1)
+            if (Operator == "<" && ranges.X.Max > Amount - 1)
             {
                 ranges.X.Max = Amount.Value - 1;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.X.Min < Amount + 1)
+            else if (Operator == ">" && ranges.X.Min < Amount + 1)
             {
                 ranges.X.Min = Amount.Value + 1;
             }
         }
         else // invert the operator
         { // s < 1351 --> s >= 1351
-            if (Operator == Day19.Operator.LessThan && ranges.X.Min < Amount)
+            if (Operator == "<" && ranges.X.Min < Amount)
             {
                 ranges.X.Min = Amount.Value;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.X.Max > Amount)
+            else if (Operator == ">" && ranges.X.Max > Amount)
             { // s > 1351 --> s <= 1351
                 ranges.X.Max = Amount.Value;
             }
@@ -436,22 +434,22 @@ public class MRule : Rule
     {
         if (isTrue)
         {
-            if (Operator == Day19.Operator.LessThan && ranges.M.Max > Amount - 1)
+            if (Operator == "<" && ranges.M.Max > Amount - 1)
             {
                 ranges.M.Max = Amount.Value - 1;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.M.Min < Amount + 1)
+            else if (Operator == ">" && ranges.M.Min < Amount + 1)
             {
-                ranges.M.Min = Amount.Value - 1;
+                ranges.M.Min = Amount.Value + 1;
             }
         }
         else
         { // s < 1351 --> s >= 1351
-            if (Operator == Day19.Operator.LessThan && ranges.M.Min < Amount)
+            if (Operator == "<" && ranges.M.Min < Amount)
             {
                 ranges.M.Min = Amount.Value;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.M.Max > Amount)
+            else if (Operator == ">" && ranges.M.Max > Amount)
             { // s > 1351 --> s <= 1351
                 ranges.M.Max = Amount.Value;
             }
@@ -469,22 +467,22 @@ public class ARule : Rule
     {
         if (isTrue)
         {
-            if (Operator == Day19.Operator.LessThan && ranges.A.Max > Amount - 1)
+            if (Operator == "<" && ranges.A.Max > Amount - 1)
             {
                 ranges.A.Max = Amount.Value - 1;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.A.Min < Amount + 1)
+            else if (Operator == ">" && ranges.A.Min < Amount + 1)
             {
-                ranges.A.Min = Amount.Value - 1;
+                ranges.A.Min = Amount.Value + 1;
             }
         }
         else
         { // s < 1351 --> s >= 1351
-            if (Operator == Day19.Operator.LessThan && ranges.A.Min < Amount)
+            if (Operator == "<" && ranges.A.Min < Amount)
             {
                 ranges.A.Min = Amount.Value;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.A.Max > Amount)
+            else if (Operator == ">" && ranges.A.Max > Amount)
             { // s > 1351 --> s <= 1351
                 ranges.A.Max = Amount.Value;
             }
@@ -502,23 +500,27 @@ public class SRule : Rule
     {
         if (isTrue)
         {
-            if (Operator == Day19.Operator.LessThan && ranges.S.Max > Amount - 1)
+            // s < 2000 --> 1..1999
+            if (Operator == "<" && ranges.S.Max > Amount - 1)
             {
                 ranges.S.Max = Amount.Value - 1;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.S.Min < Amount + 1)
+            // s > 2000 --> 2001..4000
+            else if (Operator == ">" && ranges.S.Min < Amount + 1)
             {
-                ranges.S.Min = Amount.Value - 1;
+                ranges.S.Min = Amount.Value + 1;
             }
         }
         else
-        { // s < 1351 --> s >= 1351
-            if (Operator == Day19.Operator.LessThan && ranges.S.Min < Amount)
+        {
+            // s < 1351 --> s >= 1351
+            if (Operator == "<" && ranges.S.Min < Amount)
             {
                 ranges.S.Min = Amount.Value;
             }
-            else if (Operator == Day19.Operator.GreaterThan && ranges.S.Max > Amount)
-            { // s > 1351 --> s <= 1351
+            // s > 1351 --> s <= 1351
+            else if (Operator == ">" && ranges.S.Max > Amount)
+            {
                 ranges.S.Max = Amount.Value;
             }
         }
