@@ -91,6 +91,35 @@ public class Matrix<T>
         }
     }
 
+    public Position Find(Func<T, bool> findFn)
+    {
+        for (var y = 0; y < VerticalBounds.Length; y++)
+        {
+            for (var x = 0; x < HorizontalBounds.Length; x++)
+            {
+                if (findFn(this[x, y]))
+                    return new Position(x, y);
+            }
+        }
+
+        return null;
+    }
+
+    public int Count(Func<T, bool> validFn)
+    {
+        var count = 0;
+        for (var y = 0; y < VerticalBounds.End; y++)
+        {
+            for (var x = 0; x < HorizontalBounds.End; x++)
+            {
+                if (validFn(this[x, y]))
+                    count++;
+            }
+        }
+
+        return count;
+    }
+
     public IEnumerable<ValuePosition<T>> GetAdjacentValues(Position p, bool skipCorners) => GetAdjacentValues(p.X, p.Y, skipCorners);
 
     public IEnumerable<ValuePosition<T>> GetAdjacentValues(int x, int y, bool skipCorners)

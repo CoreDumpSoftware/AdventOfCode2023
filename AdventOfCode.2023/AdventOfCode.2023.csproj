@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Include="..\..\..\..\AppData\Local\AdventOfCode\2023\Day20.txt" Link="Day20\Day20.txt" />
+    <Content Include="..\..\..\..\AppData\Local\AdventOfCode\2023\Day21.txt" Link="Day21\Day21.txt" />
   </ItemGroup>
 
   <ItemGroup>
